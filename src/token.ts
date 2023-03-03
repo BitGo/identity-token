@@ -1,5 +1,4 @@
-import type { AccessTokenResponse } from '@bitgo-private/wallet-platform-types';
-import type { IdentityJWTPayload } from './types';
+import type { IdentityJWTPayload, LegacyAccessToken } from './types';
 
 export class IdentityToken {
   public readonly payload: IdentityJWTPayload;
@@ -17,7 +16,7 @@ export class IdentityToken {
    * @param originToUse - the web origin to select when jwt contains more than
    * one allowed web origin
    */
-  public mapToLegacy(originToUse?: string): AccessTokenResponse {
+  public mapToLegacy(originToUse?: string): LegacyAccessToken {
     return {
       id: this.payload.jti || '',
       client: this.payload.azp,

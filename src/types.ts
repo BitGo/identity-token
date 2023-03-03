@@ -47,3 +47,16 @@ export const IdentityJWTPayload = t.type({
 });
 
 export type IdentityJWTPayload = t.TypeOf<typeof IdentityJWTPayload>;
+
+export type LegacyAccessToken = {
+  id: string;
+  client: string;
+  user: string;
+  scope: string[];
+  created: Date;
+  expires: Date;
+  origin: string;
+  label: string;
+  isExtensible: boolean;
+  token: string;
+};
