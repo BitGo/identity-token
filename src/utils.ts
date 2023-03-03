@@ -17,9 +17,7 @@ export const getIdentityJWKSetFunction = (
   baseUrl?: string,
   options?: jose.RemoteJWKSetOptions
 ): GetKeyFunction => {
-  const url =
-    baseUrl ||
-    'http://identity-service-keycloakx-http.identity-service.svc.cluster.local';
+  const url = baseUrl || 'https://identity.bitgo.com';
   return jose.createRemoteJWKSet(
     new URL(`${url}/realms/bitgo/protocol/openid-connect/certs`),
     options

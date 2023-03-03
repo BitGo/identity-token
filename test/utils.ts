@@ -2,9 +2,7 @@ import nock from 'nock';
 
 export const nockGetJWKSetCall = () => {
   // JWS keys are from identity.bitgo-dev.com
-  nock(
-    'http://identity-service-keycloakx-http.identity-service.svc.cluster.local'
-  )
+  nock('https://identity.bitgo.com')
     .get('/realms/bitgo/protocol/openid-connect/certs')
     .reply(200, {
       keys: [
@@ -39,9 +37,7 @@ export const nockGetJWKSetCall = () => {
 };
 
 export const nockGetJWKSetCallFailure = () => {
-  nock(
-    'http://identity-service-keycloakx-http.identity-service.svc.cluster.local'
-  )
+  nock('https://identity.bitgo.com')
     .get('/realms/bitgo/protocol/openid-connect/certs')
     .reply(500);
 };

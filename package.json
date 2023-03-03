@@ -12,16 +12,17 @@
     "dist/src/"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p 'tsconfig.build.json'",
     "clean": "rm -rf -- dist",
     "lint": "eslint src",
     "test": "c8 mocha -r ts-node/register test/**/*.ts --exit"
   },
   "dependencies": {
-    "@bitgo-private/wallet-platform-types": "*",
     "jose": "^4.11.2",
     "jsonwebtoken": "^8.5.1",
-    "superagent": "^8.0.9"
+    "superagent": "^8.0.9",
+    "fp-ts": "^2.10.5",
+    "io-ts": "2.1.3"
   },
   "devDependencies": {
     "@types/chai": "4.3.1",
@@ -38,17 +39,11 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "fp-ts": "^2.10.5",
-    "io-ts": "2.1.3",
     "mocha": "10.0.0",
     "nock": "13.3.0",
-    "node:16": "link:@types/node:16",
     "prettier": "^2.8.4",
     "ts-node": "10.4.0",
     "typescript": "4.6.3"
-  },
-  "engines": {
-    "node": "16"
   },
   "publishConfig": {
     "access": "public"
