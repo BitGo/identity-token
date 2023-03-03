@@ -1,0 +1,16 @@
+{
+  "editor.formatOnSave": true,
+  "editor.tabSize": 4,
+  "npm.packageManager": "pnpm",
+  "eslint.packageManager": "pnpm",
+  "eslint.workingDirectories": ["src"],
+  "eslint.validate": ["typescript", "javascript"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "mocha.files.glob": "test/**/*.test.ts",
+  "mocha.requires": ["ts-node/register"],
+  "mocha.options": {
+    "config": "mocha.json"
+  },
+}
