@@ -9,6 +9,31 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+    name: "Commit Message Check"
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 10
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          cache: "pnpm"
+          node-version: lts/*
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Validate PR commits with commitlint
+        if: github.event_name == 'pull_request'
+        run: pnpm dlx commitlint --from ${{ github.event.pull_request.head.sha }}~${{ github.event.pull_request.commits }} --to ${{ github.event.pull_request.head.sha }} --verbose
+
   identity-token:
     runs-on: ubuntu-latest
 
