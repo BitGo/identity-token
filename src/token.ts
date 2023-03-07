@@ -41,7 +41,9 @@ export class IdentityToken {
     let origin: string | undefined;
 
     if (originToUse && allowedOrigins.length > 1) {
-      origin = allowedOrigins.find((origin) => origin.includes(originToUse));
+      // extract the domain from the requested origin
+      const cleanOrigin = this.cleanOrigin(originToUse);
+      origin = allowedOrigins.find((origin) => origin.includes(cleanOrigin));
     } else {
       origin = allowedOrigins[0];
     }
