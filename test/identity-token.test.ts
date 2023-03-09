@@ -37,7 +37,7 @@ describe('Identity Token', () => {
   });
 
   it('should map to legacy access token using selected web origin', async () => {
-    const accessToken = identityToken.mapToLegacy('http://localhost');
+    const accessToken = identityToken.mapToLegacy('http://localhost:3000');
 
     assert.equal(accessToken.client, 'com.bitgo.cli');
     assert.equal(accessToken.user, '5cae3130f8f4561d51dfcbfdaafba9b9');
