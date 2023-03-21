@@ -1,12 +1,52 @@
 import type { IdentityJWTPayload, LegacyAccessToken } from './types';
 
 export class IdentityToken {
+  public readonly userId: string;
+  public readonly enterprises: string[];
+  public readonly scopes: string[];
   public readonly payload: IdentityJWTPayload;
   private readonly token: string;
 
   constructor(token: string, payload: IdentityJWTPayload) {
     this.payload = payload;
     this.token = token;
+    this.userId = payload.bitgo_id;
+    this.enterprises = payload.enterprises;
+    this.scopes = this.payload.scope.split(' ');
+  }
+
+  /**
+   * Determines if the token has expired.
+   * @returns boolean
+   */
+  public isExpired() {
+    return new Date() >= this.parseEpoch(this.payload.exp);
+  }
+
+  /**
+   * Determines if the given request origin is registered with
+   * the requesting client.
+   *
+   * @param requestOrigin
+   * @returns boolean
+   */
+  public isOriginAllowed(requestOrigin: string) {
+    const _origin = this.cleanOrigin(requestOrigin);
+    return this.payload['allowed-origins'].find((origin) =>
+      origin.includes(_origin)
+    )
+      ? true
+      : false;
+  }
+
+  /**
+   * Determines if the identity token contains a given scope
+   *
+   * @param scope
+   * @returns boolean
+   */
+  public hasScope(scope: string) {
+    return this.scopes.includes(scope);
   }
 
   /**
@@ -21,7 +61,7 @@ export class IdentityToken {
       id: this.payload.jti || '',
       client: this.payload.azp,
       user: this.payload.bitgo_id,
-      scope: this.payload.scope.split(' '),
+      scope: this.scopes,
       created: this.parseEpoch(this.payload.iat),
       expires: this.parseEpoch(this.payload.exp),
       origin: this._extractWebOrigin(
