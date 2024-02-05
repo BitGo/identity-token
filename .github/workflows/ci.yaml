@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     name: "Commit Message Check"
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 10
 
@@ -22,7 +22,7 @@ jobs:
           version: 7
 
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           cache: "pnpm"
           node-version: lts/*
@@ -44,14 +44,14 @@ jobs:
     name: Node.js ${{ matrix.node-version }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - uses: pnpm/action-setup@v2
         with:
           version: 7
 
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           cache: "pnpm"
           node-version: ${{ matrix.node-version }}
